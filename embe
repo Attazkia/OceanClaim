@@ -1,6 +1,6 @@
 let intervalId; // Variabel untuk menyimpan ID interval
 let countdownId; // Variabel untuk menyimpan ID interval hitungan mundur
-const delayInMs = 6300000; // Delay selama 1 jam 59 menit (7140000 ms)
+const delayInMs = 6700000; // Delay selama 1 jam 59 menit (7140000 ms)
 
 function autoClickMintElements() {
     // Gunakan querySelectorAll untuk memilih elemen-elemen dengan beberapa kelas yang berbeda
