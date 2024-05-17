@@ -1,0 +1,45 @@
+let intervalId; // Variabel untuk menyimpan ID interval
+let countdownId; // Variabel untuk menyimpan ID interval hitungan mundur
+const delayInMs = 6300000; // Delay selama 1 jam 59 menit (7140000 ms)
+
+function autoClickMintElements() {
+    // Gunakan querySelectorAll untuk memilih elemen-elemen dengan beberapa kelas yang berbeda
+    const mintElements = document.querySelectorAll('.w-full.p-3.text-center.pb-4.bg0, .w-full.p-3.text-center.pb-4.bg1, .w-full.p-3.text-center.pb-4.bg2, .w-full.p-3.text-center.pb-4.bg3');
+
+    if (mintElements.length > 0) {
+        mintElements[0].click();
+        console.log('Berhasil Claim..');
+        
+        // Tambahkan waktu delay setelah berhasil meng claim
+        clearInterval(intervalId); // Hentikan interval saat ini
+        
+        let countdownTime = delayInMs / 60000; // Hitungan mundur dalam menit
+        countdownId = setInterval(() => {
+            if (countdownTime > 0) {
+                const hours = Math.floor(countdownTime / 60);
+                const minutes = Math.floor(countdownTime % 60);
+                console.log(`Hitungan mundur Claim: ${hours} jam ${minutes} menit`);
+                countdownTime--;
+            } else {
+                clearInterval(countdownId); // Hentikan hitungan mundur saat selesai
+                intervalId = setInterval(autoClickMintElements, 1000); // Mulai kembali interval setelah delay
+            }
+        }, 60000); // Perbarui setiap menit
+    } else {
+        console.log('Gagal Claim.. Tombol Claim belum muncul harap tunggu.');
+    }
+}
+
+// Jalankan fungsi autoClickMintElements setiap interval tertentu (misalnya setiap 1 detik)
+intervalId = setInterval(autoClickMintElements, 10000);
+
+// Tambahkan event listener untuk menangani input keyboard
+document.addEventListener('keydown', function(event) {
+    // Periksa apakah tombol yang ditekan adalah "q"
+    if (event.key === 'q') {
+        // Hentikan interval dan hitungan mundur jika "q" ditekan
+        clearInterval(intervalId);
+        clearInterval(countdownId);
+        console.log('Program telah dihentikan.');
+    }
+});
